@@ -1,0 +1,192 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Tajawal";
+}
+:root {
+  --red-color: #ff4d4d;
+  --black-color: #000;
+  --white-color: #fff;
+  --yellow-color: #fff200;
+}
+
+body {
+  direction: rtl;
+  background-color: var(--background);
+}
+.main {
+  width: 100%;
+  min-height: 100vh;
+}
+.inputContainer {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  direction: rtl;
+  background-color: white;
+  padding: 0 2%;
+  border-radius: 8px;
+}
+.inputContainer label {
+  font-size: 20px;
+  color: black;
+}
+.inputContainer input {
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 7px;
+  font-size: 20px;
+  background-color: transparent;
+}
+.inputContainer select {
+  width: 100%;
+  outline: none;
+  padding: 7px;
+  border-radius: 8px;
+  border: none;
+  font-size: 20px;
+}
+table {
+  width: 100%;
+  text-align: center;
+}
+table, th, td {
+  padding: 20px;
+  border-collapse: collapse;
+}
+thead th {
+  position: sticky;
+  top: 0;
+  background-color:  #2c2c2c;
+  color: whitesmoke;
+}
+tbody tr:nth-child(even) {
+    background-color: #0000000b;
+}
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.actions button {
+  width: 100%;
+  height: 30px;
+  background-color: var(--main-color);
+  font-size: 20px;
+  border: none;
+  padding: 5px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: .3s ;
+}
+.actions button:hover {
+  background-color: var(--hover-color);
+}
+tfoot {
+  background-color: black;
+  color: white;
+  font-size: 20px;
+}
+.box {
+  width: 100%;
+  height: fit-content;
+  padding: 15px;
+  background-color: var(--background);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+.boxTitle {
+  width: 100%;
+  position: relative;
+  text-align: center;
+}
+.boxTitle button {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  background-color: transparent;
+  border: none;
+  font-size: 25px;
+  color: red;
+  cursor: pointer;
+}
+.contentContainer {
+  width: 100%;
+}
+.headerContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 2%;
+}
+.header {
+    background-color: var(--red-color);
+    width: 100%;
+    height: 80px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2%;
+}
+.header h2 {
+  color: white;
+  font-size: 30px;
+}
+.content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2%;
+}
+.tableContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 15px 2%;
+}
+.tableHead {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.tableHead h3 {
+  font-size: 25px;
+  color: var(--text-color);
+}
+.tableHead button {
+  font-size: 20px;
+  background-color: var(--main-color);
+  border: none;
+  border-radius: 8px;
+  padding: 7px;
+  color: white;
+  cursor: pointer;
+  transition: .3s;
+}
+.tableHead button:hover {
+  background-color: var(--hover-color);
+}
+.tableContent {
+  width: 100%;
+}
+
