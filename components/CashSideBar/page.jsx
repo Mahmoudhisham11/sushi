@@ -9,7 +9,7 @@ import { MdOutlineTableRestaurant } from "react-icons/md";
 import { GoPerson } from "react-icons/go";
 import { MdOutlineDashboard } from "react-icons/md";
 
-function SideBar() {
+function CashSideBar() {
   const router = useRouter();
 
   const handleLogout = () => {
@@ -26,21 +26,13 @@ function SideBar() {
         <h2>Devoria</h2>
         </div>
         <div className={styles.actions}>
-          <Link href={"/dashboard"} className={styles.actionLinks}>
+          <Link href={"/main"} className={styles.actionLinks}>
             <span><MdOutlineDashboard /></span>
             <span>الصفحة الرئيسية</span>
           </Link>
-          <Link href={"/employess"} className={styles.actionLinks}>
-            <span><GoPerson /></span>
-            <span>الموظفين</span>
-          </Link>
-          <Link href={"/products"} className={styles.actionLinks}>
-            <span><IoFastFoodOutline /></span>
-            <span>الاكلات</span>
-          </Link>
-          <Link href={"/tables"} className={styles.actionLinks}>
-            <span><MdOutlineTableRestaurant /></span>
-            <span>الترابيزات</span>
+          <Link href={"/main"} className={styles.actionLinks}>
+            <span><TbReportSearch /></span>
+            <span>التقارير</span>
           </Link>
         </div>
       </div>
@@ -56,4 +48,4 @@ function SideBar() {
   );
 }
 
-export default SideBar;
+export default CashSideBar;

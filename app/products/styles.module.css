@@ -1,79 +1,205 @@
 .products {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: start;
-    align-items: start;
-}   
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+}
+
+.tableContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  overflow-x: auto;
+}
+
+.tableHead {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tableHead h3 {
+  font-size: 24px;
+  color: #2f2f2f;
+}
+
+.tableHead button {
+  font-size: 18px;
+  background-color: #e84118;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 16px;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(232,65,24,0.3);
+  transition: 0.3s;
+}
+
+.tableHead button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(232,65,24,0.4);
+}
+
+.tableContent table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.tableContent th, .tableContent td {
+  padding: 14px 18px;
+  text-align: center;
+}
+
+.tableContent th {
+  background-color: #e84118;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 12px 12px 0 0;
+}
+
+.tableContent tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tableContent tr:hover {
+  background-color: rgba(232,65,24,0.08);
+  transform: scale(1.01);
+  transition: 0.3s;
+}
+
+.tableActions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.tableActions button {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+}
+
+.tableActions button:first-child {
+  background-color: #e84118;
+  color: #fff;
+}
+
+.tableActions button:first-child:hover {
+  background-color: #c23616;
+}
+
+.tableActions button:last-child {
+  background-color: #fff;
+  color: #e84118;
+  border: 2px solid #e84118;
+}
+
+.tableActions button:last-child:hover {
+  background-color: #e84118;
+  color: #fff;
+}
+
+/* Popup */
 .popupOverlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.35);
   display: flex;
-  align-items: center;
   justify-content: center;
-  animation: fadeIn 0.3s ease-in-out;
+  align-items: center;
   z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Popup box */
 .popupContent {
   background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  width: 350px;
+  padding: 30px 35px;
+  border-radius: 20px;
+  width: 400px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  animation: slideIn 0.4s ease-in-out;
-}
-.tableActions {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-/* Inputs */
-.popupContent input {
-  padding: 8px 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  gap: 15px;
+  box-shadow: 0 12px 35px rgba(232,65,24,0.25);
+  animation: slideDown 0.4s ease-in-out;
 }
 
-/* Buttons */
+.popupContent h3 {
+  color: #e84118;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.popupContent input, .popupContent select {
+  padding: 12px;
+  border: 1px solid #e84118;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.popupContent input:focus, .popupContent select:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgba(232,65,24,0.3);
+}
+
 .actions {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  margin-top: 10px;
 }
 
 .actions button {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 6px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: bold;
   cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 15px rgba(232,65,24,0.3);
   transition: 0.3s;
 }
 
 .actions button:first-child {
-  background: #007bff;
-  color: white;
+  background-color: #e84118;
+  color: #fff;
+}
+
+.actions button:first-child:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(232,65,24,0.4);
 }
 
 .actions button:last-child {
-  background: #ccc;
+  background-color: #fff;
+  color: #e84118;
+  border: 2px solid #e84118;
 }
 
-/* Animations */
+.actions button:last-child:hover {
+  background-color: #e84118;
+  color: #fff;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-@keyframes slideIn {
-  from { transform: translateY(-20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-25px); }
+  to { opacity: 1; transform: translateY(0); }
 }

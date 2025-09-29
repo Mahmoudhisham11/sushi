@@ -17,7 +17,7 @@ export default function Tables() {
   const [tables, setTables] = useState([]);
   const [editId, setEditId] = useState(null);
 
-  // ✅ جلب البيانات من Firebase
+  // جلب البيانات
   useEffect(() => {
     const q = collection(db, "tables");
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -26,12 +26,12 @@ export default function Tables() {
     return () => unsubscribe();
   }, []);
 
-  // ✅ حفظ البيانات
+  // حفظ البيانات
   const handleSave = async () => {
     if (!newTable.number.trim()) return;
 
     if (editId) {
-      // تعديل البيانات مش مطلوب حاليا لكن ممكن تضيفه
+      // لو حبيت تضيف تعديل مستقبلا
     } else {
       await addDoc(collection(db, "tables"), {
         number: newTable.number,
@@ -43,51 +43,58 @@ export default function Tables() {
     setNewTable({ number: "" });
   };
 
-  // ✅ حذف الترابيزة
+  // حذف الترابيزة
   const handleDelete = async (id) => {
     await deleteDoc(doc(db, "tables", id));
   };
 
   return (
-    <div className={styles.tables}>
+    <div className={styles.products}>
       <SideBar />
       <div className="contentContainer">
         <div className="headerContainer">
           <div className="header">
-            <h2>الترابيزات</h2>
+            <h2>المنتجات</h2>
           </div>
         </div>
+
         <div className="content">
           <div className="tableContainer">
-            <div className="tableHead">
-              <h3>جدول الترابيزات</h3>
-              <button onClick={() => setOpenPopup(true)}>اضف ترابيزة جديدة</button>
-            </div>
-            <div className="tableContent">
-              <table>
-                <thead>
-                  <tr>
-                    <th>رقم الترابيزة</th>
-                    <th>خيارات</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {tables.map((table) => (
+          <div className="tableHead">
+            <h3>جدول الترابيزات</h3>
+            <button onClick={() => setOpenPopup(true)}>اضف ترابيزة جديدة</button>
+          </div>
+          <div className="tableContent">
+            <table>
+              <thead>
+                <tr>
+                  <th>رقم الترابيزة</th>
+                  <th>خيارات</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tables.length > 0 ? (
+                  tables.map((table) => (
                     <tr key={table.id}>
                       <td>{table.number}</td>
-                      <td>
+                      <td className={styles.tableActions}>
                         <button onClick={() => handleDelete(table.id)}>حذف</button>
                       </td>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="2">لا يوجد ترابيزات بعد</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
+        </div>
         </div>
       </div>
 
-      {/* ✅ Popup */}
+      {/* Popup */}
       {openPopup && (
         <div
           className={styles.popupOverlay}

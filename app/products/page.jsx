@@ -18,10 +18,11 @@ export default function Products() {
   const [newProduct, setNewProduct] = useState({
     name: "",
     price: "",
+    type: "مشروبات",
   });
-  const [editId, setEditId] = useState(null); // ✅ لتحديد المنتج المراد تعديله
+  const [editId, setEditId] = useState(null);
 
-  // ✅ جلب المنتجات
+  // جلب المنتجات
   const fetchProducts = async () => {
     const querySnapshot = await getDocs(collection(db, "products"));
     const data = querySnapshot.docs.map((doc) => ({
@@ -35,42 +36,40 @@ export default function Products() {
     fetchProducts();
   }, []);
 
-  // ✅ اضافة أو تعديل منتج
+  // إضافة أو تعديل منتج
   const handleSave = async () => {
-    if (!newProduct.name || !newProduct.price) {
+    if (!newProduct.name || !newProduct.price || !newProduct.type) {
       alert("من فضلك املى كل البيانات");
       return;
     }
 
     if (editId) {
-      // ✅ تعديل منتج
       const productRef = doc(db, "products", editId);
       await updateDoc(productRef, {
         name: newProduct.name,
         price: Number(newProduct.price),
+        type: newProduct.type,
       });
     } else {
-      // ✅ إضافة منتج جديد
       await addDoc(collection(db, "products"), {
         name: newProduct.name,
         price: Number(newProduct.price),
+        type: newProduct.type,
       });
     }
 
-    setNewProduct({ name: "", price: "" });
+    setNewProduct({ name: "", price: "", type: "مشروبات" });
     setEditId(null);
     setOpenPopup(false);
     fetchProducts();
   };
 
-  // ✅ فتح البوب أب مع بيانات المنتج للتعديل
   const handleEdit = (prod) => {
-    setNewProduct({ name: prod.name, price: prod.price });
+    setNewProduct({ name: prod.name, price: prod.price, type: prod.type || "مشروبات" });
     setEditId(prod.id);
     setOpenPopup(true);
   };
 
-  // ✅ حذف منتج
   const handleDelete = async (id) => {
     await deleteDoc(doc(db, "products", id));
     fetchProducts();
@@ -97,6 +96,7 @@ export default function Products() {
                   <tr>
                     <th>اسم المنتج</th>
                     <th>السعر</th>
+                    <th>النوع</th>
                     <th>خيارات</th>
                   </tr>
                 </thead>
@@ -105,15 +105,16 @@ export default function Products() {
                     <tr key={prod.id}>
                       <td>{prod.name}</td>
                       <td>{prod.price} جنيه</td>
+                      <td>{prod.type}</td>
                       <td className={styles.tableActions}>
-                        <button onClick={() => handleDelete(prod.id)}>حذف</button>
                         <button onClick={() => handleEdit(prod)}>تعديل</button>
+                        <button onClick={() => handleDelete(prod.id)}>حذف</button>
                       </td>
                     </tr>
                   ))}
                   {products.length === 0 && (
                     <tr>
-                      <td colSpan="3">لا يوجد منتجات بعد</td>
+                      <td colSpan="4">لا يوجد منتجات بعد</td>
                     </tr>
                   )}
                 </tbody>
@@ -123,14 +124,14 @@ export default function Products() {
         </div>
       </div>
 
-      {/* ✅ Popup */}
+      {/* Popup */}
       {openPopup && (
         <div
           className={styles.popupOverlay}
           onClick={() => {
             setOpenPopup(false);
             setEditId(null);
-            setNewProduct({ name: "", price: "" });
+            setNewProduct({ name: "", price: "", type: "مشروبات" });
           }}
         >
           <div
@@ -154,6 +155,15 @@ export default function Products() {
                 setNewProduct({ ...newProduct, price: e.target.value })
               }
             />
+            <select
+              value={newProduct.type}
+              onChange={(e) =>
+                setNewProduct({ ...newProduct, type: e.target.value })
+              }
+            >
+              <option value="مشروبات">مشروبات</option>
+              <option value="اكل">اكل</option>
+            </select>
             <div className={styles.actions}>
               <button onClick={handleSave}>
                 {editId ? "حفظ التعديلات" : "اضافة"}
@@ -162,7 +172,7 @@ export default function Products() {
                 onClick={() => {
                   setOpenPopup(false);
                   setEditId(null);
-                  setNewProduct({ name: "", price: "" });
+                  setNewProduct({ name: "", price: "", type: "مشروبات" });
                 }}
               >
                 الغاء

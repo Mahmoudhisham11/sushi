@@ -173,26 +173,37 @@
 .paymentOption {
   flex: 1;
   text-align: center;
-  padding: 8px;
-  border-radius: 10px;
-  background: #f1f1f1;
+  padding: 12px 0;
+  border-radius: 12px;
+  background: #f7f7f7;
   cursor: pointer;
-  transition: 0.3s ease-in-out;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.paymentOption input {
-  display: none;
+.paymentOption span {
+  margin-top: 4px;
 }
 
 .paymentOption:hover {
-  background: #ddd;
+  background: #eaeaea;
+  transform: translateY(-2px);
 }
 
 .paymentOption.selected {
   background: var(--red-color, #e63946);
   color: white;
   transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
+
 
 /* ✅ زر الحفظ */
 .saveBtn {
@@ -209,4 +220,58 @@
 
 .saveBtn:hover {
   background: #d62839;
+}
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.popup {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+.popup input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.popupButtons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.popupButtons button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.popupButtons button:first-child {
+  background: #ccc;
+}
+
+.popupButtons button:last-child {
+  background: var(--red-color, #e63946);
+  color: white;
 }

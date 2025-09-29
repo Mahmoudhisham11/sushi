@@ -1,7 +1,67 @@
 .dashboard {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+}
+.content {
     width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: start;
-    align-items: start;
+    padding: 15px 2%;
+}
+/* ===== كروت المعلومات ===== */
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--white-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.icon {
+  font-size: 36px;
+  color: var(--main-color);
+  margin-right: 15px;
+}
+
+.card h3 {
+  margin: 0 0 5px 0;
+  font-size: 16px;
+  color: var(--text-color);
+}
+
+.card p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--black-color);
+}
+
+/* ===== الرسوم البيانية ===== */
+.chartBox {
+  margin-bottom: 30px;
+  background-color: var(--white-color);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.sideBySideCharts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
 }

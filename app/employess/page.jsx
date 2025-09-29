@@ -2,7 +2,7 @@
 import SideBar from "@/components/SideBar/page";
 import styles from "./styles.module.css";
 import { useState, useEffect } from "react";
-import { db } from "../firebase"; // ✅ تأكد ان ملف firebase مضبوط عندك
+import { db } from "../firebase";
 import {
   collection,
   addDoc,
@@ -12,7 +12,7 @@ import {
   doc,
 } from "firebase/firestore";
 
-export default function Employess() {
+export default function Employees() {
   const [employees, setEmployees] = useState([]);
   const [openPopup, setOpenPopup] = useState(false);
   const [newEmployee, setNewEmployee] = useState({
@@ -23,9 +23,9 @@ export default function Employess() {
   });
   const [editId, setEditId] = useState(null);
 
-  // ✅ جلب الموظفين
+  // جلب البيانات
   const fetchEmployees = async () => {
-    const querySnapshot = await getDocs(collection(db, "employess")); // خلي بالك من اسم الكولكشن
+    const querySnapshot = await getDocs(collection(db, "employess"));
     const data = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -37,7 +37,7 @@ export default function Employess() {
     fetchEmployees();
   }, []);
 
-  // ✅ اضافة/تعديل موظف
+  // حفظ أو تعديل
   const handleSave = async () => {
     if (!newEmployee.name || !newEmployee.job || !newEmployee.salary || !newEmployee.password) {
       alert("من فضلك املى كل البيانات");
@@ -45,11 +45,9 @@ export default function Employess() {
     }
 
     if (editId) {
-      // تعديل
       const employeeRef = doc(db, "employess", editId);
       await updateDoc(employeeRef, newEmployee);
     } else {
-      // اضافة
       await addDoc(collection(db, "employess"), newEmployee);
     }
 
@@ -59,26 +57,26 @@ export default function Employess() {
     fetchEmployees();
   };
 
-  // ✅ حذف موظف
-  const handleDelete = async (id) => {
-    await deleteDoc(doc(db, "employess", id));
-    fetchEmployees();
-  };
-
-  // ✅ فتح المودال للتعديل
-  const handleEdit = (employee) => {
+  const handleEdit = (emp) => {
     setNewEmployee({
-      userName: employee.name,
-      job: employee.job,
-      salary: employee.salary,
-      password: employee.password,
+      name: emp.name,
+      job: emp.job,
+      salary: emp.salary,
+      password: emp.password,
     });
-    setEditId(employee.id);
+    setEditId(emp.id);
     setOpenPopup(true);
   };
 
+  const handleDelete = async (id) => {
+    if (confirm("هل أنت متأكد من حذف هذا الموظف؟")) {
+      await deleteDoc(doc(db, "employess", id));
+      fetchEmployees();
+    }
+  };
+
   return (
-    <div className={styles.employess}>
+    <div className={styles.products}> {/* نفس اسم الـ class ليتوافق مع تصميم المنتجات */}
       <SideBar />
       <div className="contentContainer">
         <div className="headerContainer">
@@ -111,8 +109,8 @@ export default function Employess() {
                       <td>{emp.salary}</td>
                       <td>{emp.password}</td>
                       <td className={styles.tableActions}>
-                        <button onClick={() => handleDelete(emp.id)}>حذف</button>
                         <button onClick={() => handleEdit(emp)}>تعديل</button>
+                        <button onClick={() => handleDelete(emp.id)}>حذف</button>
                       </td>
                     </tr>
                   ))}
@@ -128,9 +126,16 @@ export default function Employess() {
         </div>
       </div>
 
-      {/* ✅ Popup */}
+      {/* Popup */}
       {openPopup && (
-        <div className={styles.popupOverlay} onClick={() => setOpenPopup(false)}>
+        <div
+          className={styles.popupOverlay}
+          onClick={() => {
+            setOpenPopup(false);
+            setEditId(null);
+            setNewEmployee({ name: "", job: "", salary: "", password: "" });
+          }}
+        >
           <div
             className={styles.popupContent}
             onClick={(e) => e.stopPropagation()}
@@ -172,7 +177,15 @@ export default function Employess() {
               <button onClick={handleSave}>
                 {editId ? "حفظ التعديلات" : "اضافة"}
               </button>
-              <button onClick={() => setOpenPopup(false)}>الغاء</button>
+              <button
+                onClick={() => {
+                  setOpenPopup(false);
+                  setEditId(null);
+                  setNewEmployee({ name: "", job: "", salary: "", password: "" });
+                }}
+              >
+                الغاء
+              </button>
             </div>
           </div>
         </div>
